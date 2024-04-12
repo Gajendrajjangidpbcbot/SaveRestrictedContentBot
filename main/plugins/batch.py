@@ -30,7 +30,7 @@ async def get_pvt_content(event, chat, id):
     msg = await userbot.get_messages(chat, ids=id)
     await event.client.send_message(event.chat_id, msg) 
     
-@Drone.on(events.NewMessage(incoming=True, pattern='/batch'))
+@Drone.on(events.NewMessage(incoming=True, pattern='/mortal'))
 async def _batch(event):
     if not event.is_private:
         return
@@ -62,7 +62,7 @@ async def _batch(event):
                 return await conv.send_message("Cannot wait more longer for your response!")
             try:
                 value = int(_range.text)
-                if value > 500:
+                if value > 100000:
                     return await conv.send_message("You can only get upto 100 files in a single batch.")
             except ValueError:
                 return await conv.send_message("Range must be an integer!")
@@ -78,13 +78,13 @@ async def _batch(event):
             
 async def run_batch(userbot, client, sender, link, _range):
     for i in range(_range):
-        timer = 60
-        if i < 25:
+        timer = 10
+        if i < 5:
             timer = 5
         if i < 50 and i > 25:
             timer = 10
         if i < 500 and i > 50:
-            timer = 15
+            timer = 5
         if not 't.me/c/' in link:
             if i < 25:
                 timer = 2
